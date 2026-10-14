@@ -1,11 +1,21 @@
 import socket
 import struct
-from queue import Empty, Full, Queue
-from threading import Event, Thread
-from time import monotonic
-from UR3e_rg2.dynamic_ur3e import UR3eRG2
+from time import sleep
+import numpy as np
+from multiprocessing import Process, Array
 from constantes import HOST, PORT_TIEMPO_REAL as PORT
+from time import monotonic
 
+def contar_paquetes_por_segundo(paquetes_en_ventana: int,inicio_ventana: float,) -> tuple[int, float, float | None]:
+    paquetes_en_ventana += 1
+    ahora = monotonic()
+    transcurrido = ahora - inicio_ventana
+
+    if transcurrido >= 1.0:
+        tasa = paquetes_en_ventana / transcurrido
+        return 0, ahora, tasa
+
+    return paquetes_en_ventana, inicio_ventana, None
 
 def recibir_paquete(cliente: socket.socket, cantidad_bytes: int) -> bytes:
     partes = []
@@ -20,88 +30,66 @@ def recibir_paquete(cliente: socket.socket, cantidad_bytes: int) -> bytes:
 
     return b"".join(partes)
 
+def leer_robot(Joint_state) -> None:
 
-def recibir_estados(estados: Queue[tuple[float, ...]], finalizado: Event, errores: Queue[Exception],) -> None:
-    try:
-        with socket.create_connection((HOST, PORT)) as cliente:
-            paquetes_en_ventana = 0
-            inicio_ventana = monotonic()
+    with socket.create_connection((HOST, PORT)) as cliente:
+        paquetes_en_ventana = 0
+        inicio_ventana = monotonic()
 
-            while not finalizado.is_set():
-                cabecera = recibir_paquete(cliente, 4)
-                longitud = struct.unpack(">i", cabecera)[0]
-                if longitud < 300:
-                    raise ValueError(f"Longitud de mensaje inválida: {longitud}")
+        while True:
+            bytes_recibidos = recibir_paquete(cliente, 1220)
 
-                data = recibir_paquete(cliente, longitud - 4)
-                estado = struct.unpack(">6d", data[248:296])
+            paquetes_en_ventana, inicio_ventana, tasa = contar_paquetes_por_segundo(
+                paquetes_en_ventana, inicio_ventana
+            )
+            if tasa is not None:
+                print(f"Tasa de recepción: {tasa:.2f} paquetes/s")
+            Joint_state[:] = struct.unpack_from(">6d", bytes_recibidos, 252)
 
-                paquetes_en_ventana += 1
-                ahora = monotonic()
-                transcurrido = ahora - inicio_ventana
-                if transcurrido >= 1.0:
-                    print(
-                        f"Tasa de recepción: "
-                        f"{paquetes_en_ventana / transcurrido:.2f} paquetes/s"
-                    )
-                    paquetes_en_ventana = 0
-                    inicio_ventana = ahora
+#def robot_client(robot: UR3eRG2) -> None:
+#    data = 0
+#    Joint_state = np.zeros(6)
+#
+#    with socket.create_connection((HOST, PORT)) as cliente:
+#        paquetes_en_ventana = 0
+#        inicio_ventana = monotonic()
+#
+#        while True:
+#            bytes_recibidos = recibir_paquete(cliente, 1220)
+#
+#            paquetes_en_ventana, inicio_ventana, tasa = contar_paquetes_por_segundo(
+#            paquetes_en_ventana, inicio_ventana
+#            )
+#            if tasa is not None:
+#                print(f"Tasa de recepción: {tasa:.2f} paquetes/s")
+#
+#            #print(f"Recibido mensaje con longitud {len(bytes_recibidos)}")
+#            Robot_state = bytes_recibidos[252:300]
+#            Joint_state[0] = struct.unpack(">d", Robot_state[0:8])[0]
+#            Joint_state[1] = struct.unpack(">d", Robot_state[8:16])[0]
+#            Joint_state[2] = struct.unpack(">d", Robot_state[16:24])[0]
+#            Joint_state[3] = struct.unpack(">d", Robot_state[24:32])[0]
+#            Joint_state[4] = struct.unpack(">d", Robot_state[32:40])[0]
+#            Joint_state[5] = struct.unpack(">d", Robot_state[40:48])[0]
+#            #print("Estados de las articulaciones:", Joint_state * 180 / np.pi)
+#            #robot.move_robot(0, Joint_state.tolist())
 
-                try:
-                    estados.put_nowait(estado)
-                except Full:
-                    try:
-                        estados.get_nowait()
-                    except Empty:
-                        pass
-                    estados.put_nowait(estado)
-    except (OSError, ValueError, struct.error, ConnectionError) as error:
-        errores.put(error)
-    finally:
-        finalizado.set()
+def main():
+    Joint_state = Array('d', 6)  # Array compartido para almacenar los estados de las articulaciones
+    lector_proceso = Process(target=leer_robot, args=(Joint_state,), daemon=True)
+    lector_proceso.start()
 
-
-def robot_client(robot: UR3eRG2) -> None:
-    estados: Queue[tuple[float, ...]] = Queue(maxsize=1)
-    finalizado = Event()
-    errores: Queue[Exception] = Queue()
-    receptor = Thread(
-        target=recibir_estados,
-        args=(estados, finalizado, errores),
-        daemon=True,
-    )
-    receptor.start()
-
-    intervalo_simulacion = 1 / 60
-    siguiente_actualizacion = monotonic()
-
-    try:
-        while not finalizado.is_set() or not estados.empty():
-            espera = siguiente_actualizacion - monotonic()
-            if espera > 0:
-                finalizado.wait(espera)
-
-            estado = None
-            while True:
-                try:
-                    estado = estados.get_nowait()
-                except Empty:
-                    break
-
-            if estado is not None:
-                robot.move_robot(0, list(estado))
-                siguiente_actualizacion = monotonic() + intervalo_simulacion
-
-        if not errores.empty():
-            raise errores.get()
-    finally:
-        finalizado.set()
-
-
-def main() -> None:
+    from UR3e_rg2.dynamic_ur3e import UR3eRG2
     robot = UR3eRG2()
-    robot_client(robot)
 
-
+    try:
+        while True:
+            robot.move_robot(0, Joint_state[:])
+            sleep(1/30)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        lector_proceso.terminate()
+    
 if __name__ == "__main__":
-    main()
+	main()
