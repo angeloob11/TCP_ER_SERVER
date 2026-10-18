@@ -1,0 +1,29 @@
+# Entorno virtual de Python
+venv/
+.venv/
+
+# Python compilado
+__pycache__/
+*.py[cod]
+
+# Maquina virtual URSim y comprimidos (cientos de MB)
+URSim_VIRTUAL-*/
+*.rar
+*.zip
+*.vmdk
+*.vbox
+*.vbox-prev
+*.vmx
+*.log
+
+# Wheel del visualizador (se distribuye por el aula virtual)
+*.whl
+
+# Documentacion de terceros (copyright de Universal Robots)
+referencias/
+
+# Ficheros de sistema y editores
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

@@ -1,0 +1,4 @@
+# El visualizador se instala aparte desde el wheel del aula virtual:
+#   pip install ur3e_rg2-0.1.0-py3-none-any.whl
+# (instala tambien pybullet, pybullet_planning y numpy)
+numpy
