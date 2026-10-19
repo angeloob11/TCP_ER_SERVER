@@ -5,7 +5,7 @@ import numpy as np
 from multiprocessing import Process, Array
 from constantes import HOST, PORT_TIEMPO_REAL as PORT
 from time import monotonic
-from buffer_ur import recibir_mensajes
+from buffer_ur import recibir_mensajes, conectar_con_reintento
 
 def contar_paquetes_por_segundo(paquetes_en_ventana: int,inicio_ventana: float,) -> tuple[int, float, float | None]:
     paquetes_en_ventana += 1
@@ -33,19 +33,25 @@ def recibir_paquete(cliente: socket.socket, cantidad_bytes: int) -> bytes:
 
 def leer_robot(Joint_state) -> None:
 
-    with socket.create_connection((HOST, PORT)) as cliente:
-        buffer = bytearray()
-        paquetes_en_ventana = 0
-        inicio_ventana = monotonic()
+    while True:  # Si se cae la conexión, se vuelve a esperar al servidor
+        try:
+            # El puerto 30003 envía a 500 Hz: 1 s sin datos = conexión muerta
+            with conectar_con_reintento(HOST, PORT, timeout_recv=1.0) as cliente:
+                buffer = bytearray()
+                paquetes_en_ventana = 0
+                inicio_ventana = monotonic()
 
-        while True:
-            for mensaje in recibir_mensajes(cliente, buffer, 4):
-                paquetes_en_ventana, inicio_ventana, tasa = contar_paquetes_por_segundo(
-                    paquetes_en_ventana, inicio_ventana
-                )
-                if tasa is not None:
-                    print(f"Tasa de recepción: {tasa:.2f} paquetes/s")
-                Joint_state[:] = struct.unpack_from(">6d", mensaje, 252)
+                while True:
+                    for mensaje in recibir_mensajes(cliente, buffer, 4):
+                        paquetes_en_ventana, inicio_ventana, tasa = contar_paquetes_por_segundo(
+                            paquetes_en_ventana, inicio_ventana
+                        )
+                        if tasa is not None:
+                            print(f"Tasa de recepción: {tasa:.2f} paquetes/s")
+                        Joint_state[:] = struct.unpack_from(">6d", mensaje, 252)
+        except (OSError, ValueError, struct.error) as e:
+            print(f"Conexión perdida: {e!r}. Reconectando...", flush=True)
+            sleep(1)
 
 
 def main():
