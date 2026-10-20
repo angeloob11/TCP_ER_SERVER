@@ -4,8 +4,8 @@ Solo recibe y cuenta: sin cola, sin hilos y sin simulación. Así se separa
 "el robot/la red no entrega 500 mensajes/s" de "mi aplicación no los lee".
 
 Uso:
-    python diagnostico_rx.py                      # usa HOST/PORT de constantes.py
-    python diagnostico_rx.py --host 192.168.0.10 --port 30003 --segundos 15
+    python rx.py                      # usa HOST/PORT de constantes.py
+    python rx.py --host 192.168.0.10 --port 30003 --segundos 15
 """
 
 import argparse

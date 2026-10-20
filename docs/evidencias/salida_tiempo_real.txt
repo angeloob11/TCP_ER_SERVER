@@ -1,0 +1,77 @@
+Conectado a 192.168.1.140:30003
+starting thread 0
+started testThreads thread 0 with threadHandle 00000000000002C4
+argc=2
+argv[0] = --unused
+argv[1] = --start_demo_name=Physics Server
+ExampleBrowserThreadFunc started
+Version = 4.6.0 - Build 31.0.101.1999
+Vendor = Intel
+Renderer = Intel(R) UHD Graphics
+b3Printf: Selected demo: Physics Server
+starting thread 0
+started MotionThreads thread 0 with threadHandle 0000000000000738
+MotionThreadFunc thread started
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: No inertial data for link, using mass=1, localinertiadiagonal = 1,1,1, identity local inertial frame
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: base_link
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: No inertial data for link, using mass=1, localinertiadiagonal = 1,1,1, identity local inertial frame
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: base
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: No inertial data for link, using mass=1, localinertiadiagonal = 1,1,1, identity local inertial frame
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: tool0
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,1181]:
+
+b3Printf: No default visual for URDF_GEOM_PLANE
+Tasa de recepción: 245.00 paquetes/s
+Tasa de recepción: 246.00 paquetes/s
+Tasa de recepción: 283.00 paquetes/s
+Tasa de recepción: 244.00 paquetes/s
+Tasa de recepción: 262.00 paquetes/s
+Tasa de recepción: 348.00 paquetes/s
+Tasa de recepción: 354.00 paquetes/s
+Tasa de recepción: 354.00 paquetes/s
+Tasa de recepción: 370.00 paquetes/s
+Tasa de recepción: 319.00 paquetes/s
+Tasa de recepción: 351.00 paquetes/s
+Tasa de recepción: 353.00 paquetes/s
+Tasa de recepción: 302.00 paquetes/s
+Tasa de recepción: 289.00 paquetes/s
+Tasa de recepción: 377.00 paquetes/s
+Tasa de recepción: 371.00 paquetes/s
+Tasa de recepción: 324.00 paquetes/s
+Tasa de recepción: 350.00 paquetes/s
+Tasa de recepción: 308.00 paquetes/s
+Conexión perdida: TimeoutError('timed out'). Reconectando...
+Servidor 192.168.1.140:30003 no disponible (intento 1): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 2): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 3): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 4): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 5): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 6): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 7): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 8): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 9): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 10): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 11): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 12): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 13): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 14): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 15): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 16): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 17): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 18): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 19): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 20): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 21): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30003 no disponible (intento 22): timed out. Reintentando en 1.0 s...

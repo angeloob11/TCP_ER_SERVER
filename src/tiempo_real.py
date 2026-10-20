@@ -1,7 +1,5 @@
-import socket
 import struct
 from time import sleep
-import numpy as np
 from multiprocessing import Process, Array
 from constantes import HOST, PORT_TIEMPO_REAL as PORT
 from time import monotonic
@@ -17,19 +15,6 @@ def contar_paquetes_por_segundo(paquetes_en_ventana: int,inicio_ventana: float,)
         return 0, ahora, tasa
 
     return paquetes_en_ventana, inicio_ventana, None
-
-def recibir_paquete(cliente: socket.socket, cantidad_bytes: int) -> bytes:
-    partes = []
-    recibidos = 0
-
-    while recibidos < cantidad_bytes:
-        parte = cliente.recv(cantidad_bytes - recibidos)
-        if not parte:
-            raise ConnectionError("El servidor cerró la conexión")
-        partes.append(parte)
-        recibidos += len(parte)
-
-    return b"".join(partes)
 
 def leer_robot(Joint_state) -> None:
 

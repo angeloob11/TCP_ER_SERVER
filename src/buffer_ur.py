@@ -4,7 +4,6 @@ from time import sleep
 
 LONGITUD_MAXIMA = 65536  # Un mensaje más grande que esto significa que estamos desalineados
 
-
 def conectar_con_reintento(host: str, port: int, intervalo: float = 1.0, timeout: float = 2.0,
                            timeout_recv: float = 2.0) -> socket.socket:
     # OSError cubre todos los casos: puerto cerrado (ConnectionRefusedError),
@@ -23,7 +22,6 @@ def conectar_con_reintento(host: str, port: int, intervalo: float = 1.0, timeout
             intento += 1
             sleep(intervalo)
 
-
 def extraer_mensajes(buffer: bytearray, tam_cabecera: int) -> list[bytes]:
    
     mensajes = []
@@ -36,7 +34,6 @@ def extraer_mensajes(buffer: bytearray, tam_cabecera: int) -> list[bytes]:
         mensajes.append(bytes(buffer[:longitud]))        
         del buffer[:longitud]                            
     return mensajes
-
 
 def recibir_mensajes(cliente: socket.socket, buffer: bytearray,tam_cabecera: int, depurar: bool = False) -> list[bytes]:
     

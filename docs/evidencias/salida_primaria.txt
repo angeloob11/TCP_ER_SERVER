@@ -1,0 +1,1211 @@
+starting thread 0
+started testThreads thread 0 with threadHandle 0000000000000490
+argc=2
+argv[0] = --unused
+argv[1] = --start_demo_name=Physics Server
+ExampleBrowserThreadFunc started
+Version = 4.6.0 - Build 31.0.101.1999
+Vendor = Intel
+Renderer = Intel(R) UHD Graphics
+b3Printf: Selected demo: Physics Server
+starting thread 0
+started MotionThreads thread 0 with threadHandle 00000000000004D4
+MotionThreadFunc thread started
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: No inertial data for link, using mass=1, localinertiadiagonal = 1,1,1, identity local inertial frame
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: base_link
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: No inertial data for link, using mass=1, localinertiadiagonal = 1,1,1, identity local inertial frame
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: base
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: No inertial data for link, using mass=1, localinertiadiagonal = 1,1,1, identity local inertial frame
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+
+b3Printf: tool0
+b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,1181]:
+
+b3Printf: No default visual for URDF_GEOM_PLANE
+Conectado a 192.168.1.140:30001
+Recibido mensaje tipo 20 con longitud 55
+Recibido mensaje tipo 20 con longitud 24
+Recibido mensaje tipo 20 con longitud 57
+Recibido mensaje tipo 24 con longitud 181
+Recibido mensaje tipo 23 con longitud 881
+Recibido mensaje tipo 16 con longitud 1477
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.71335427  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.62242586  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -91.16029598  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -90.78229173  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -90.29797377  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -89.80184319  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -89.38840103  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -88.92770834  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -88.44339039  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -88.11263666  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -87.67556924  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -87.21487656  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -86.74237123  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -86.26986591  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -85.91548692  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -85.57292057  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -85.08860261  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -84.66334782  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -84.20265514  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -83.70652455  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -83.2222066   -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -82.80876444  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -82.40713492  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -81.9700675   -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -81.50937481  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -81.07230739  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -80.5761768   -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -80.09185885  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -79.572103    -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -79.13503557  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -78.65071762  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -78.16639967  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -77.68208171  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -77.20957639  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -76.77250897  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -76.28819102  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -75.8511236   -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -75.41405617  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -74.97698875  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -74.58717186  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -74.07922864  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -73.63034859  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -73.15784327  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -72.70896321  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -72.28370842  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -71.90570417  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -71.43319885  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -70.97250616  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -70.51181347  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -70.01568289  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -69.5549902   -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -69.29511227  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -69.10611014  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -68.64541746  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -68.18472477  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -67.71221945  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -67.22790149  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.76720881  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.29789265  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.9555408  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.93835206 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -98.60329727 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -98.34341935 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -97.87091403 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -97.37478344 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -96.92590339 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -96.47702333 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -96.00451801 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -95.49657479 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -95.0004442  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -94.53975152 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -94.0318083  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -93.64199141 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -93.15767345 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -92.7796692  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -92.29535124 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -91.91734699 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -91.43302903 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -90.99596161 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -90.51164366 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -90.02732571 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -89.50756985 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -89.15319086 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -88.69249817 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -88.18455496 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -87.68842437 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -87.21591905 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -86.76703899 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -86.31815894 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -85.82202835 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -85.3731483  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -84.92426824 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -84.56988925 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -84.0855713  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -83.61306598 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -83.19962382 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -82.73893114 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -82.23098792 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -81.7584826  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -81.27416464 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -80.86072249 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -80.37640453 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -79.88027395 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -79.39595599 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -78.9352633  -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -78.42732009 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -78.12019163 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -77.65949894 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -77.24605678 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.76173883 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.31320255 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -126.22260227  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -126.2018039   -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -125.78767031  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -125.31516499  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -124.81903441  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -124.32290382  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -123.82677323  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -123.38970581  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -122.92901312  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -122.50375834  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -122.01944038  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -121.58237296  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -121.12168027  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -120.75548865  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -120.28298333  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -119.81047801  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -119.32616005  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -118.8418421   -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -118.44021258  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -118.09764622  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -117.61332827  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -117.22351138  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -116.75100606  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -116.2666881   -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -115.80599542  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -115.34530273  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -114.86098477  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -114.40029209  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -113.91597413  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -113.46709408  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -113.01821402  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -112.71108557  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -112.25039288  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.99051495  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.62404563  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -46.29498985   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -46.18756026   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -45.612769     91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -44.74418408   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -43.96496148   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -43.18573888   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -42.47527121   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -41.53562043   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -40.64180627   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -39.7250738    91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -38.78542301   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -37.86869054   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -36.99779469   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -36.10398053   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -35.25600299   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -34.31635221   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -33.49129298   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -32.5516422    91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -31.63490973   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -30.71817726   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -29.84728141   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -28.93054894   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -28.10548971   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -27.23459386   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -26.35315559   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.81652332   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 20 con longitud 52
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 722
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Recibido mensaje tipo 16 con longitud 743
+Estados de las articulaciones: [ -66.21574623  -76.12758782 -111.58080397  -25.77160343   91.3924979
+   -1.77616916]
+Recibido mensaje tipo 5 con longitud 9
+Conexión perdida: TimeoutError('timed out'). Reconectando...
+Servidor 192.168.1.140:30001 no disponible (intento 1): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30001 no disponible (intento 2): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30001 no disponible (intento 3): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30001 no disponible (intento 4): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30001 no disponible (intento 5): timed out. Reintentando en 1.0 s...
+Servidor 192.168.1.140:30001 no disponible (intento 6): timed out. Reintentando en 1.0 s...
