@@ -2,7 +2,7 @@ import json
 import sys
 from pathlib import Path
 from time import sleep
-from threading import Thread
+from threading import Thread, Lock
 import primaria
 import tiempo_real
 from constantes import PORT, PORT_TIEMPO_REAL
@@ -25,6 +25,15 @@ def cargar_robots(ruta: Path) -> list[dict]:
             raise ValueError(f"{r['nombre']}: la pose debe ser [x, y, z, roll, pitch, yaw]")
     return robots
 
+def leer_robot(Joint_state: list[float], HOST: str, PORT: int, Lock: Lock) -> None:
+    lector = LECTORES[PORT]
+    lector(Joint_state, HOST, PORT)
+    with Lock:
+        sleep(1)  # Evita que el hilo muera inmediatamente y deje de imprimir el error de conexión
+
+def send_to_real_robot(Joint_state: list[float], HOST: str, PORT: int, Lock: Lock) -> None:
+    pass
+
 def main():
     ruta = Path(sys.argv[1]) if len(sys.argv) > 1 else RUTA_CONFIG
     robots = cargar_robots(ruta)
@@ -32,8 +41,10 @@ def main():
     # Un hilo lector y una lista compartida por robot (daemon=True: mueren al terminar el programa)
     for r in robots:
         r["Joint_state"] = [0.0] * 6
-        lector = LECTORES[r["puerto"]]
-        Thread(target=lector, args=(r["Joint_state"], r["host"], r["puerto"]),name=r["nombre"], daemon=True).start()
+        #lector = LECTORES[r["puerto"]]
+        #Thread(target=lector, args=(r["Joint_state"], r["host"], r["puerto"]),name=r["nombre"], daemon=True).start()
+        Thread(target=leer_robot, args=(r["Joint_state"], r["host"], r["puerto"], Lock()), name=r["nombre"], daemon=True).start()
+
 
     import pybullet as p
     from UR3e_rg2.dynamic_ur3e import UR3eRG2
