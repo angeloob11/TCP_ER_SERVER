@@ -27,7 +27,7 @@ LECTORES = {
 class Keys:
     """Códigos de tecla que devuelve p.getKeyboardEvents()"""
     # Navegación
-    TAB = 9                             # Pasar al siguiente robot activo
+    TAB = ord("t")                            # Pasar al siguiente robot activo
 
     # Puntos
     G = ord("g")                        # guardar_posicion() del robot activo
@@ -53,17 +53,13 @@ class Keys:
     DIGITOS = range(ord("0"), ord("9") + 1)
 
 AYUDA = """
-Tab   siguiente robot activo        n  escribir serie (n 0 2 1 Enter)
+t   siguiente robot activo        n  escribir serie (n 0 2 1 Enter)
 g     guardar posición del robot    p  previsualizar serie
 s     guardar punto de deslizadores e  ejecutar serie (confirmar con y)
 l     listar puntos                 x  cancelar ejecución
 b     borrar último punto           c  continuar tras un error
 h     ayuda
 """
-
-def nuevo_estado_teclado() -> dict:
-    return {"activo": 0, "modo": "normal", "buffer": "", "serie": [],
-            "hilo": None, "robot_ejec": 0, "fallo": None, "cancelar": False}
 
 def cargar_puntos() -> dict[int, list[float]]:
     if not RUTA_PUNTOS.exists():
@@ -412,7 +408,8 @@ def main():
         print(f"{r['nombre']} -> {r['host']}:{r['puerto']} (id {r['id']})", flush=True)
 
     p.configureDebugVisualizer(p.COV_ENABLE_KEYBOARD_SHORTCUTS, 0)
-    estado = nuevo_estado_teclado()
+    estado = {"activo": 0, "modo": "normal", "buffer": "", "serie": [],
+            "hilo": None, "robot_ejec": 0, "fallo": None, "cancelar": False}
     print(AYUDA, flush=True)
 
     try:
