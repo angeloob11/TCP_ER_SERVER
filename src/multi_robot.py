@@ -419,9 +419,9 @@ def main():
                     q = r["Robot_state"]["q"][:]
                 sim.move_robot(r["id"], q)
              #Lectura del teclado
-                for tecla, ev in p.getKeyboardEvents().items():
-                    if ev & p.KEY_WAS_TRIGGERED:
-                        manejar_tecla(tecla, sim, robots, estado)
+            for tecla, ev in p.getKeyboardEvents().items():
+                if ev & p.KEY_WAS_TRIGGERED:
+                    manejar_tecla(tecla, sim, robots, estado)
               
             sleep(1/30)
     except KeyboardInterrupt:
