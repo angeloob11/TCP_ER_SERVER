@@ -24,6 +24,195 @@ LECTORES = {
     PORT_TIEMPO_REAL: tiempo_real.leer_robot,
 }
 
+class Keys:
+    """Códigos de tecla que devuelve p.getKeyboardEvents()"""
+    # Navegación
+    TAB = 9                             # Pasar al siguiente robot activo
+
+    # Puntos
+    G = ord("g")                        # guardar_posicion() del robot activo
+    S = ord("s")                        # guardar_pos_desde_sim(), deslizadores
+    L = ord("l")                        # Listar puntos guardados
+    B = ord("b")                        # Borrar el último punto guardado
+
+    # Serie
+    N = ord("n")                        # Empezar a escribir la serie de IDs
+    P = ord("p")                        # Previsualizar con mover_fantasma
+    E = ord("e")                        # Ejecutar la serie (pide confirmación)
+    Y = ord("y")                        # Confirmar la ejecución
+    X = ord("x")                        # Cancelar la ejecución
+    C = ord("c")                        # Continuar tras un error
+
+    # Ayuda
+    H = ord("h")                        # Mostrar la ayuda
+
+    # Edición de la serie (modo n)
+    ENTER = p.B3G_RETURN                # Terminar la serie
+    BACKSPACE = p.B3G_BACKSPACE         # Borrar el último carácter
+    SPACE = ord(" ")                    # Separador entre IDs
+    DIGITOS = range(ord("0"), ord("9") + 1)
+
+AYUDA = """
+Tab   siguiente robot activo        n  escribir serie (n 0 2 1 Enter)
+g     guardar posición del robot    p  previsualizar serie
+s     guardar punto de deslizadores e  ejecutar serie (confirmar con y)
+l     listar puntos                 x  cancelar ejecución
+b     borrar último punto           c  continuar tras un error
+h     ayuda
+"""
+
+def nuevo_estado_teclado() -> dict:
+    return {"activo": 0, "modo": "normal", "buffer": "", "serie": [],
+            "hilo": None, "robot_ejec": 0, "fallo": None, "cancelar": False}
+
+def cargar_puntos() -> dict[int, list[float]]:
+    if not RUTA_PUNTOS.exists():
+        return {}
+    with open(RUTA_PUNTOS, encoding="utf-8") as f:
+        return {pt["id"]: pt["q"] for pt in json.load(f)}
+
+def ejecutando(estado: dict) -> bool:
+    return estado["hilo"] is not None and estado["hilo"].is_alive()
+
+def hilo_ejecucion(robot: dict, serie: list[int], desde: int, estado: dict) -> None:
+    # Punto a punto para saber dónde falló y poder continuar desde ahí con c
+    estado["fallo"] = None
+    for i in range(desde, len(serie)):
+        if estado["cancelar"]:
+            estado["fallo"] = i
+            print("Ejecución cancelada", flush=True)
+            return
+        with robot["lock"]:
+            cliente = robot["Robot_state"]["socket"]
+        if cliente is None:
+            estado["fallo"] = i
+            print(f"{robot['nombre']}: sin conexión. Pulsa c para reintentar", flush=True)
+            return
+        try:
+            enviar_serie([serie[i]], cliente, robot["Robot_state"], robot["lock"])
+        except (RuntimeError, ValueError, OSError) as e:
+            estado["fallo"] = i
+            if estado["cancelar"]:
+                print(f"Ejecución cancelada en el punto {serie[i]}", flush=True)
+            else:
+                print(f"Error en el punto {serie[i]}: {e}\nPulsa c para continuar desde él", flush=True)
+            return
+    print("Serie completada", flush=True)
+
+def lanzar_ejecucion(robots: list, estado: dict, idx_robot: int, desde: int) -> None:
+    estado["cancelar"] = False
+    estado["robot_ejec"] = idx_robot
+    estado["hilo"] = Thread(target=hilo_ejecucion,
+                            args=(robots[idx_robot], estado["serie"], desde, estado), daemon=True)
+    estado["hilo"].start()
+
+def manejar_tecla(tecla: int, sim: UR3eRG2, robots: list, estado: dict) -> None:
+    # --- Modo escribir serie ---
+    if estado["modo"] == "serie":
+        if tecla in Keys.DIGITOS or tecla == Keys.SPACE:
+            estado["buffer"] += chr(tecla)
+            print(chr(tecla), end="", flush=True)
+        elif tecla == Keys.BACKSPACE:
+            estado["buffer"] = estado["buffer"][:-1]
+        elif tecla == Keys.ENTER:
+            estado["serie"] = [int(t) for t in estado["buffer"].split()]
+            estado["modo"] = "normal"
+            faltan = [i for i in estado["serie"] if i not in cargar_puntos()]
+            print(f"\nSerie: {estado['serie']}", flush=True)
+            if faltan:
+                print(f"  Aviso: los puntos {faltan} no existen", flush=True)
+        return
+
+    # --- Modo confirmar ejecución ---
+    if estado["modo"] == "confirmar":
+        estado["modo"] = "normal"
+        if tecla == Keys.Y:
+            lanzar_ejecucion(robots, estado, estado["activo"], 0)
+        else:
+            print("Ejecución no confirmada", flush=True)
+        return
+
+    # --- Modo normal ---
+    activo = robots[estado["activo"]]
+    match tecla:
+        case Keys.TAB:
+            estado["activo"] = (estado["activo"] + 1) % len(robots)
+            print(f"Robot activo: {robots[estado['activo']]['nombre']}", flush=True)
+
+        case Keys.G:
+            guardar_posicion(activo["Robot_state"], activo["lock"], RUTA_PUNTOS)
+
+        case Keys.S:
+            guardar_pos_desde_sim(sim, RUTA_PUNTOS)
+
+        case Keys.L:
+            puntos = cargar_puntos()
+            if not puntos:
+                print("No hay puntos guardados", flush=True)
+            for id_punto, q in puntos.items():
+                print(f"  {id_punto}: {[round(math.degrees(a), 1) for a in q]}", flush=True)
+
+        case Keys.N:
+            estado["modo"], estado["buffer"] = "serie", ""
+            print("Serie (IDs separados por espacio, Enter para terminar): ", end="", flush=True)
+
+        case Keys.P:
+            puntos = cargar_puntos()
+            if not estado["serie"]:
+                print("No hay serie: usa n", flush=True)
+            elif faltan := [i for i in estado["serie"] if i not in puntos]:
+                print(f"Los puntos {faltan} no existen", flush=True)
+            else:
+                mover_fantasma([puntos[i] for i in estado["serie"]], sim, activo["pose"])
+
+        case Keys.E:
+            if not estado["serie"]:
+                print("No hay serie: usa n", flush=True)
+            elif ejecutando(estado):
+                print("Ya hay una ejecución en curso", flush=True)
+            else:
+                estado["modo"] = "confirmar"
+                print(f"¿Ejecutar {estado['serie']} en {activo['nombre']}? (y para confirmar)", flush=True)
+
+        case Keys.X:
+            if not ejecutando(estado):
+                print("No hay ninguna ejecución en curso", flush=True)
+            else:
+                estado["cancelar"] = True
+                robot = robots[estado["robot_ejec"]]
+                with robot["lock"]:
+                    cliente = robot["Robot_state"]["socket"]
+                if cliente is not None:
+                    cliente.sendall(f"stopj({ACELERACION_MAX})\n".encode("ascii"))
+                print("Cancelando...", flush=True)
+
+        case Keys.C:
+            if ejecutando(estado):
+                print("La ejecución sigue en curso", flush=True)
+            elif estado["fallo"] is None:
+                print("No hay ningún punto pendiente del que continuar", flush=True)
+            else:
+                print(f"Continuando desde el punto {estado['serie'][estado['fallo']]}", flush=True)
+                lanzar_ejecucion(robots, estado, estado["robot_ejec"], estado["fallo"])
+
+        case Keys.B:
+            if not RUTA_PUNTOS.exists():
+                print("No hay puntos guardados", flush=True)
+                return
+            with open(RUTA_PUNTOS, encoding="utf-8") as f:
+                puntos = json.load(f)
+            if not puntos:
+                print("No hay puntos guardados", flush=True)
+                return
+            borrado = puntos.pop()
+            with open(RUTA_PUNTOS, "w", encoding="utf-8") as f:
+                json.dump(puntos, f, indent=2)
+            print(f"Punto {borrado['id']} borrado", flush=True)
+
+        case Keys.H:
+            print(AYUDA, flush=True)
+
+
 def cargar_robots(ruta: Path) -> list[dict]:
     with open(ruta, encoding="utf-8") as f:
         robots = json.load(f)
@@ -199,8 +388,6 @@ def mover_fantasma(puntos: list, Sim: UR3eRG2, pose: list[float] = [0, 0, 0, 0, 
         p.removeBody(id_fantasma)
         print(f"Fantasma {id_fantasma} eliminado", flush=True)
 
-
-
 def main():
     ruta = Path(sys.argv[1]) if len(sys.argv) > 1 else RUTA_CONFIG
     robots = cargar_robots(ruta)
@@ -224,15 +411,26 @@ def main():
             r["id"] = sim.spawn_robot(r["pose"])
         print(f"{r['nombre']} -> {r['host']}:{r['puerto']} (id {r['id']})", flush=True)
 
+    p.configureDebugVisualizer(p.COV_ENABLE_KEYBOARD_SHORTCUTS, 0)
+    estado = nuevo_estado_teclado()
+    print(AYUDA, flush=True)
+
     try:
         while True:
             for r in robots:
                 with r["lock"]:
                     q = r["Robot_state"]["q"][:]
                 sim.move_robot(r["id"], q)
+             #Lectura del teclado
+                for tecla, ev in p.getKeyboardEvents().items():
+                    if ev & p.KEY_WAS_TRIGGERED:
+                        manejar_tecla(tecla, sim, robots, estado)
+              
             sleep(1/30)
     except KeyboardInterrupt:
         pass
+   
+
 
 
 if __name__ == "__main__":
