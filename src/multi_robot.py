@@ -11,8 +11,14 @@ import pybullet as p
 from UR3e_rg2.dynamic_ur3e import UR3eRG2
 from constantes import PORT, PORT_TIEMPO_REAL, VELOCIDAD_MAX, ACELERACION_MAX
 
-RUTA_CONFIG = Path(__file__).resolve().parent.parent / "config" / "robots.json"
-RUTA_PUNTOS = Path(__file__).resolve().parent.parent / "config" / "puntos.json"
+# Empaquetado con PyInstaller: config/ va junto al .exe; en desarrollo, en la raíz del proyecto
+if getattr(sys, "frozen", False):
+    BASE = Path(sys.executable).resolve().parent
+else:
+    BASE = Path(__file__).resolve().parent.parent
+
+RUTA_CONFIG = BASE / "config" / "robots.json"
+RUTA_PUNTOS = BASE / "config" / "puntos.json"
 
 TOLERANCIA_Q = 0.01      # rad: desviación máxima por articulación para dar un punto por alcanzado
 TIMEOUT_INICIO = 2.0     # s: si el programa no arranca en este tiempo, la orden se ha rechazado
@@ -61,6 +67,29 @@ b     borrar último punto           c  continuar tras un error
 h     ayuda
 """
 
+def reconectar(robot: dict, timeout: float = 5.0) -> socket.socket:
+    """Corta la conexión actual para que el hilo lector abra otra nueva, y espera a que la publique."""
+    with robot["lock"]:
+        viejo = robot["Robot_state"]["socket"]
+    if viejo is not None:
+        try:
+            # shutdown (no close) es seguro desde otro hilo: el recv() del lector
+            # devuelve vacío, lanza ConnectionError y el lector reconecta solo
+            viejo.shutdown(socket.SHUT_RDWR)
+        except OSError:
+            pass
+
+    limite = monotonic() + timeout
+    while monotonic() < limite:
+        with robot["lock"]:
+            nuevo = robot["Robot_state"]["socket"]
+        if nuevo is not None and nuevo is not viejo:
+            sleep(0.5)  # margen para que llegue estado fresco por la conexión nueva
+            return nuevo
+        sleep(0.1)
+    raise RuntimeError(f"{robot['nombre']}: no se pudo reconectar en {timeout} s")
+
+
 def cargar_puntos() -> dict[int, list[float]]:
     if not RUTA_PUNTOS.exists():
         return {}
@@ -85,7 +114,21 @@ def hilo_ejecucion(robot: dict, serie: list[int], desde: int, estado: dict) -> N
             print(f"{robot['nombre']}: sin conexión. Pulsa c para reintentar", flush=True)
             return
         try:
-            enviar_serie([serie[i]], cliente, robot["Robot_state"], robot["lock"])
+            try:
+                enviar_serie([serie[i]], cliente, robot["Robot_state"], robot["lock"])
+            except RuntimeError as e:
+                # Orden rechazada (p. ej. la conexión se abrió con el robot en Manual/Local):
+                # se abre una conexión nueva y se reintenta una vez
+                                # Rechazo por conexión en solo lectura:
+                #  - primaria (30001): el robot avisa con el código C210
+                #  - tiempo real (30003): no hay aviso, salta el timeout de "no arrancó"
+                motivo = str(e)
+                rechazada = "C210" in motivo or "no arrancó" in motivo
+                if not rechazada or estado["cancelar"]:
+                    raise
+                print(f"{robot['nombre']}: orden rechazada, reconectando y reintentando...", flush=True)
+                cliente = reconectar(robot)
+                enviar_serie([serie[i]], cliente, robot["Robot_state"], robot["lock"])
         except (RuntimeError, ValueError, OSError) as e:
             estado["fallo"] = i
             if estado["cancelar"]:
