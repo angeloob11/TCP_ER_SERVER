@@ -27,3 +27,7 @@ referencias/
 .idea/
 Thumbs.db
 desktop.ini
+
+# Salida de PyInstaller (se regenera con: pyinstaller multi_robot.spec)
+build/
+dist/
