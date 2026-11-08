@@ -1,0 +1,155 @@
+GUÍA RÁPIDA DEL LABORATORIO · Pasarela TLS para el UR3e
+=========================================================
+
+Todas las órdenes se lanzan desde la carpeta ENTREGA_1.
+
+
+1. REQUISITOS
+-------------
+- Python 3.10 o posterior y OpenSSL 3 (openssl version).
+- Para ver la simulación (clienteTLS.py, multi_robot.py): pybullet y el wheel
+  del aula virtual:  pip install ur3e_rg2-0.1.0-py3-none-any.whl
+- Para las pruebas: pytest  (sudo apt install python3-pytest)
+- La IP de la pasarela tiene que estar asignada al PC:  ip -4 addr
+
+
+2. CREAR LA PKI (src/crear_pki.sh)
+----------------------------------
+Parámetros en src/pki.conf:
+    PKI_DIR       carpeta donde se crea la PKI (por defecto ENTREGA_1/PKI)
+    IP_PASARELA   IP que va en la SAN del certificado de la pasarela
+
+Modos:
+    ./src/crear_pki.sh todo          CA + pasarela + cliente-a + cliente-b
+    ./src/crear_pki.sh pasarela      reemite SOLO la pasarela (si cambia la IP)
+    ./src/crear_pki.sh cliente X     emite un cliente nuevo con CN=X
+    ./src/crear_pki.sh verificar     comprueba todo y genera PKI/informe_E1.txt
+
+Las contraseñas se piden por teclado y no se guardan. Los certificados que se
+sustituyen se guardan en <equipo>/antiguo_<fecha>/.
+
+Qué copiar a la máquina virtual del cliente (manteniendo PKI/...):
+    PKI/publico/ca.crt
+    PKI/cliente-a/cliente-a.crt  y  cliente-a.key
+NUNCA copiar PKI/ca-privado/ ni pasarela.key.
+
+
+3. FICHEROS DE CONFIGURACIÓN (config/)
+--------------------------------------
+pasarela.json    pasarela: dónde escucha, a qué robot reenvía, clientes
+                 autorizados, fichero de log y certificados
+cliente.json     cliente: certificados (ca, cert, key) y pasarela de prueba
+robots_tls.json  robots a través de la pasarela (clienteTLS.py)
+robots.json      robots en directo, sin TLS (multi_robot.py y --directo)
+
+Las rutas de "pki" y "log" son relativas a la carpeta config/.
+La contraseña NO va en ningún fichero: se pide al arrancar, o se toma de la
+variable de entorno PASARELA_CLAVE (la usan pasarela y cliente).
+
+
+4. CAMBIAR LA IP DE LA PASARELA
+-------------------------------
+El certificado lleva la IP en la SAN, así que hay que reemitirlo:
+
+  1. src/pki.conf          IP_PASARELA="10.172.21.XX"
+  2. ./src/crear_pki.sh pasarela
+  3. config/pasarela.json  "escucha":  { "host": "10.172.21.XX", ... }
+  4. config/robots_tls.json "host": "10.172.21.XX"   (en cada robot)
+  5. config/cliente.json   "pasarela": { "host": "10.172.21.XX", ... }
+  6. Copiar el nuevo ca.crt a la VM solo si se ha recreado la CA (modo todo).
+
+El cliente debe conectarse SIEMPRE por esa IP: ni 127.0.0.1 ni el nombre del
+equipo (fallaría la validación de la SAN).
+
+
+5. CAMBIAR EL PUERTO DE LA PASARELA
+-----------------------------------
+  config/pasarela.json    "escucha": { ..., "port": 3000 }
+  config/robots_tls.json  "puerto": 3000
+  config/cliente.json     "pasarela": { ..., "port": 3000 }
+(o, sin tocar el JSON:  python3 src/pasarela.py servidor --port 3001)
+El certificado no cambia: la SAN es la IP, no el puerto.
+
+
+6. CAMBIAR EL ROBOT DE DESTINO
+------------------------------
+  config/pasarela.json   "destino": { "host": "IP_DEL_ROBOT", "port": 30001 }
+
+Fase 3 (sin robot): poner aquí un servidor de eco, p. ej. 127.0.0.1:5000.
+Fase 5: la IP del robot y el puerto que usa tu cliente.
+
+La "interfaz" de robots_tls.json debe corresponder al puerto del destino:
+    30001 -> "primaria"        30003 -> "tiempo_real"
+Si no coinciden, el lector falla con "flujo desalineado".
+
+
+7. CONECTAR MÁS DE UN ROBOT
+---------------------------
+Cada pasarela reenvía a UN destino. Por cada robot (o interfaz) se arranca
+otra pasarela con su propio JSON y otro puerto de escucha:
+
+  config/pasarela.json     "escucha" 3000  ->  "destino" 10.172.21.203:30001
+  config/pasarela_2.json   "escucha" 3001  ->  "destino" 10.172.21.204:30001
+
+    python3 src/pasarela.py servidor                                 (terminal 1)
+    python3 src/pasarela.py servidor --config config/pasarela_2.json (terminal 2)
+
+Cambiar también "log" en pasarela_2.json para que cada una tenga su registro.
+
+config/robots_tls.json, una entrada por pasarela:
+  [
+    { "nombre": "robot_1", "host": "10.172.21.30", "puerto": 3000,
+      "interfaz": "primaria", "pose": [0, 0, 0, 0, 0, 0] },
+    { "nombre": "robot_2", "host": "10.172.21.30", "puerto": 3001,
+      "interfaz": "primaria", "pose": [0.8, 0, 0, 0, 0, 0] }
+  ]
+"pose" es solo la posición del robot en la simulación.
+
+
+8. EJECUTAR
+-----------
+Pasarela (PC):
+    python3 src/pasarela.py servidor
+Cliente del robot a través de la pasarela (VM):
+    python3 src/clienteTLS.py
+Cliente del robot en directo, sin TLS, para comparar (C7):
+    python3 src/clienteTLS.py --directo
+Cliente de prueba por consola (eco, sin simulación):
+    python3 src/pasarela.py cliente
+
+Otras opciones:  --config FICHERO.json   --robots FICHERO.json   --host  --port
+Registro de la pasarela: el fichero de "log" (por defecto ENTREGA_1/pasarela.log)
+    grep cliente-b pasarela.log
+
+
+9. PRUEBAS (tests/)
+-------------------
+    PASARELA_CLAVE=xxxx python3 -m pytest tests/ -v
+
+test_pasarela.py   P1-P16 de la pasarela (Fase 3)
+test_clienteTLS.py C1-C10 del cliente seguro (Fase 4)
+
+Qué necesitan:
+- NO necesitan robot ni URSim: usan la pasarela real con un servidor de eco
+  como destino.
+- NO necesitan pybullet: si no está instalado, se sustituye por un módulo vacío
+  solo para poder importar el cliente (la simulación no se abre).
+- SÍ necesitan: la IP de "escucha" de config/pasarela.json asignada a este PC,
+  los certificados en PKI/ y PASARELA_CLAVE con la contraseña de las claves
+  (si no está definida, las pruebas se omiten).
+- Una prueba opcional usa un robot real o URSim (interfaz primaria):
+      ROBOT=192.168.1.140:30001 PASARELA_CLAVE=xxxx python3 -m pytest tests/ -v
+  Sin la variable ROBOT esa prueba aparece como "skipped".
+- Tardan unos 25 s (una prueba espera el límite de 10 s del handshake).
+
+
+10. DEMOSTRACIÓN · WIRESHARK (en el PC de la pasarela)
+------------------------------------------------------
+    tcp.port == 3000      tramo cliente-pasarela: handshake y registros cifrados
+    tcp.port == 30001     tramo pasarela-robot: los mismos mensajes en claro
+
+
+11. ENTREGA (E3)
+----------------
+Sin claves privadas (.key), sin .p12, sin PKI/ca-privado/ y sin contraseñas.
+El .gitignore ya excluye *.key, *.csr, *.p12, ca-privado/ y *.log.
