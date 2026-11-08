@@ -31,3 +31,11 @@ desktop.ini
 # Salida de PyInstaller (se regenera con: pyinstaller multi_robot.spec)
 build/
 dist/
+# PKI: solo se suben los certificados públicos
+PKI/ca-privado/
+PKI/**/*.key
+PKI/**/*.csr
+PKI/**/*.p12
+PKI/**/*.srl
+PKI/**/antiguo_*/
+PKI/informe_E1.txt
