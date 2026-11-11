@@ -1,6 +1,6 @@
 basicConstraints = critical, CA:FALSE
 keyUsage = critical, digitalSignature
 extendedKeyUsage = serverAuth
-subjectAltName = IP:10.172.21.30
+subjectAltName = IP:10.172.18.7
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid, issuer

@@ -1,6 +1,6 @@
 {
-  "escucha":     { "host": "10.172.21.30",  "port": 3000 },
-  "destino":     { "host": "192.168.1.140", "port": 30001 },
+  "escucha":     { "host": "10.172.18.7",  "port": 3000 },
+  "destino":     { "host": "10.172.18.80", "port": 30001 },
   "autorizados": ["cliente-a"],
   "log":         "../pasarela.log",
   "pki": {

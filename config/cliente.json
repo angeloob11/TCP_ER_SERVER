@@ -1,5 +1,5 @@
 {
-  "pasarela": { "host": "10.172.21.30", "port": 3000 },
+  "pasarela": { "host": "10.172.18.7", "port": 3000 },
   "pki": {
     "ca":   "../PKI/publico/ca.crt",
     "cert": "../PKI/cliente-a/cliente-a.crt",
