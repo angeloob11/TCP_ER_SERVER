@@ -10,8 +10,10 @@ from pathlib import Path
 
 CONFIG_DIR = Path(__file__).resolve().parent.parent / 'config'
 CONFIG_POR_DEFECTO = {'servidor': CONFIG_DIR / 'pasarela.json',
+                      'multi':    CONFIG_DIR / 'pasarela_multi.json',
                       'cliente':  CONFIG_DIR / 'cliente.json'}
 VARIABLE_CONFIG = {'servidor': 'PASARELA_CONFIG',
+                   'multi':    'PASARELA_MULTI_CONFIG',
                    'cliente':  'CLIENTE_CONFIG'}
 
 
@@ -72,12 +74,10 @@ class Servidor():
         self.sock = socket.create_server((HOST, PORT))
 
     def Autorizado(self, tls: ssl.SSLSocket) -> tuple[bool, str]:
-        """Devuelve (autorizado, CN) del cliente; el certificado ya está validado."""
         cn = dict(c[0] for c in tls.getpeercert()['subject'])['commonName']
         return cn in self.whitelist, cn
 
     def Aceptar(self, conexion: socket.socket) -> ssl.SSLSocket:
-        """Handshake TLS sobre una conexión ya aceptada (se llama dentro del hilo del cliente)."""
         conexion.settimeout(10)
         try:
             tls = self.ctx.wrap_socket(conexion, server_side=True)
@@ -88,8 +88,6 @@ class Servidor():
         return tls
 
     def Reenviar(self, origen: socket.socket, destino: socket.socket) -> None:
-        """Copia bytes de origen a destino hasta que uno de los dos cierre o falle.
-        Al terminar cierra los dos, para que el hilo del otro sentido también acabe."""
         try:
             while datos := origen.recv(4096):
                 destino.sendall(datos)
@@ -145,6 +143,128 @@ class Cliente():
             self.tls.close()
 
 
+class PasarelaMultiInterfaz():
+
+    def __init__(self, host: str, interfaces: list[dict], ctx: ssl.SSLContext,
+                 whitelist: list[str], log: logging.Logger) -> None:
+        self.log = log
+        self.parar = threading.Event()
+        self.cerrojo = threading.Lock()            # protege activas e hilos
+        self.activas: dict[ssl.SSLSocket, socket.socket] = {}   # cliente -> su conexión con el robot
+        self.hilos: list[threading.Thread] = []
+        self.escuchas: list[threading.Thread] = []
+        # Una entrada por interfaz: (nombre, Servidor que escucha, destino en el robot)
+        self.interfaces: list[tuple[str, Servidor, tuple[str, int]]] = []
+        try:
+            for i in interfaces:
+                servidor = Servidor(host, i['port'], ctx, whitelist)
+                servidor.sock.settimeout(0.5)      # para que accept() pueda ver self.parar
+                destino = (i['destino']['host'], i['destino']['port'])
+                self.interfaces.append((i['nombre'], servidor, destino))
+                log.info('Interfaz %s escuchando en %s:%s, destino %s:%s',
+                         i['nombre'], host, i['port'], *destino)
+        except OSError:
+            for _, servidor, _ in self.interfaces:  # no dejar puertos abiertos a medias
+                servidor.Close()
+            raise
+
+    def Escuchar(self, nombre: str, servidor: Servidor, destino: tuple[str, int]) -> None:
+        while not self.parar.is_set():
+            try:
+                conexion, direccion = servidor.sock.accept()
+            except TimeoutError:
+                continue
+            except OSError:
+                break
+            hilo = threading.Thread(target=self.Atender, daemon=True,
+                                    args=(nombre, servidor, destino, conexion, direccion))
+            hilo.start()
+            with self.cerrojo:
+                self.hilos = [h for h in self.hilos if h.is_alive()] + [hilo]
+
+    def Atender(self, nombre: str, servidor: Servidor, destino: tuple[str, int],
+                conexion: socket.socket, direccion: tuple[str, int]) -> None:
+        ip = direccion[0]
+        try:
+            tls = servidor.Aceptar(conexion)
+        except (ssl.SSLError, OSError) as e:
+            self.log.warning('interfaz=%s ip=%s motivo=handshake fallido: %s', nombre, ip, e)
+            return
+
+        autorizado, cn = servidor.Autorizado(tls)
+        if not autorizado:
+            self.log.warning('interfaz=%s ip=%s cn=%s version=%s suite=%s motivo=no autorizado',
+                             nombre, ip, cn, tls.version(), tls.cipher()[0])
+            self.CerrarTLS(tls)
+            return
+        try:
+            robot = socket.create_connection(destino, timeout=5)
+        except OSError as e:
+            self.log.error('interfaz=%s ip=%s cn=%s motivo=destino %s:%s inalcanzable: %s',
+                           nombre, ip, cn, *destino, e)
+            self.CerrarTLS(tls)
+            return
+        robot.settimeout(None)
+
+        self.log.info('interfaz=%s ip=%s cn=%s version=%s suite=%s conectado a %s:%s',
+                      nombre, ip, cn, tls.version(), tls.cipher()[0], *destino)
+        with self.cerrojo:
+            self.activas[tls] = robot
+
+        vuelta = threading.Thread(target=servidor.Reenviar, args=(robot, tls), daemon=True)
+        vuelta.start()
+        servidor.Reenviar(tls, robot)
+        vuelta.join()
+
+        with self.cerrojo:
+            self.activas.pop(tls, None)
+        self.log.info('interfaz=%s ip=%s cn=%s motivo=conexión cerrada', nombre, ip, cn)
+
+    @staticmethod
+    def CerrarTLS(tls: ssl.SSLSocket) -> None:
+        try:
+            tls.unwrap().close()
+        except (ssl.SSLError, OSError):
+            tls.close()
+
+    def Iniciar(self) -> None:
+        for nombre, servidor, destino in self.interfaces:
+            hilo = threading.Thread(target=self.Escuchar, args=(nombre, servidor, destino),
+                                    daemon=True)
+            hilo.start()
+            self.escuchas.append(hilo)
+
+    def Servir(self) -> None:
+        self.Iniciar()
+        try:
+            while not self.parar.wait(1):
+                pass
+        except KeyboardInterrupt:
+            self.log.info('Cerrando pasarela')
+        finally:
+            self.Cerrar()
+
+    def Cerrar(self) -> None:
+        self.parar.set()
+        for hilo in self.escuchas:
+            hilo.join(2)
+        for _, servidor, _ in self.interfaces:
+            servidor.Close()
+        with self.cerrojo:
+            robots = list(self.activas.values())
+            hilos = list(self.hilos)
+        # Se corta el lado del robot de cada conexión: su hilo de reenvío despierta y
+        # Reenviar hace el cierre TLS (close_notify) del cliente. Así todas las
+        # conexiones se cierran a la vez, cada una en su hilo, y no una detrás de otra.
+        for robot in robots:
+            try:
+                robot.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+        for hilo in hilos:
+            hilo.join(3)
+
+
 def modo_servidor(cfg: dict, host: str, port: int):
     pki = cfg['pki']
     log = configurar_log(cfg['log'])
@@ -161,7 +281,6 @@ def modo_servidor(cfg: dict, host: str, port: int):
     log.info('Pasarela escuchando en %s:%s, destino %s:%s', host, port, *destino)
 
     def atender(conexion: socket.socket, direccion: tuple[str, int]) -> None:
-        """Un hilo por cliente: handshake, autorización, destino y reenvío."""
         ip = direccion[0]
         try:
             tls = servidor.Aceptar(conexion)
@@ -229,6 +348,25 @@ def modo_servidor(cfg: dict, host: str, port: int):
             h.join(3)
 
 
+def modo_multi(cfg: dict, host: str):
+    pki = cfg['pki']
+    log = configurar_log(cfg['log'])
+    try:
+        ctx = SSL_SERVER(pki['cert'], pki['key'], pki['ca'], pedir_clave(pki['key'].name))
+    except ssl.SSLError:
+        print('Contraseña incorrecta o la clave no corresponde al certificado')
+        return
+    except OSError as e:
+        print(f'No se pueden leer los certificados: {e}')
+        return
+    try:
+        pasarela = PasarelaMultiInterfaz(host, cfg['interfaces'], ctx, cfg['autorizados'], log)
+    except OSError as e:
+        print(f'No se puede escuchar en {host}: {e}')
+        return
+    pasarela.Servir()
+
+
 def modo_cliente(cfg: dict, host: str, port: int):
     pki = cfg['pki']
     try:
@@ -268,10 +406,10 @@ def modo_cliente(cfg: dict, host: str, port: int):
 
 def main():
     parser = argparse.ArgumentParser(description='Pasarela TLS y cliente de prueba')
-    parser.add_argument('modo', choices=['servidor', 'cliente'])
+    parser.add_argument('modo', choices=['servidor', 'multi', 'cliente'])
     parser.add_argument('--config', type=Path,
-                        help='JSON de configuración (por defecto config/pasarela.json '
-                             'o config/cliente.json según el modo)')
+                        help='JSON de configuración (por defecto config/pasarela.json, '
+                             'config/pasarela_multi.json o config/cliente.json según el modo)')
     parser.add_argument('--host', help='sustituye la IP del JSON')
     parser.add_argument('--port', type=int, help='sustituye el puerto del JSON')
     args = parser.parse_args()
@@ -282,6 +420,14 @@ def main():
         cfg = cargar_config(ruta)
     except (OSError, json.JSONDecodeError, KeyError) as e:
         print(f'No se puede leer la configuración {ruta}: {e}')
+        return
+
+    if args.modo == 'multi':
+        # varias interfaces: los puertos van en "interfaces" del JSON, no en --port
+        try:
+            modo_multi(cfg, args.host or cfg['escucha']['host'])
+        except KeyError as e:
+            print(f'Falta {e} en la configuración {ruta}')
         return
 
     # servidor: dónde escucha; cliente: a qué pasarela se conecta

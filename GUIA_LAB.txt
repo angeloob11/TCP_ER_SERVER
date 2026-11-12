@@ -3,14 +3,22 @@ GUÍA RÁPIDA DEL LABORATORIO · Pasarela TLS para el UR3e
 
 Todas las órdenes se lanzan desde la carpeta del proyecto (TCP_ER_SERVER).
 
-Esquema de la demo:
+Esquema de la demo: UNA sola pasarela (clase PasarelaMultiInterfaz) con un
+puerto de escucha por cada interfaz del robot. El cliente elige la interfaz por
+el puerto al que se conecta:
 
-  CLIENTE 1 (VM) --TLS--> PC :3000 [pasarela.json]    --TCP--> robot :30001 (primaria)
-  CLIENTE 2 (VM) --TLS--> PC :3001 [pasarela_tr.json] --TCP--> robot :30003 (tiempo real)
+  cliente --TLS--> PC :3000 --TCP--> robot :30001   primaria
+  cliente --TLS--> PC :3001 --TCP--> robot :30003   tiempo_real
+  cliente --TLS--> PC :3002 --TCP--> robot :30002   secundaria
+  cliente --TLS--> PC :3003 --TCP--> robot :30004   rtde
 
-Cada pasarela reenvía a UN solo destino (IP:puerto del robot), pero atiende a
-varios clientes a la vez (un hilo por cliente). Por eso se arranca una pasarela
-por cada interfaz que se quiera usar.
+Admite varios clientes a la vez (la prueba del profesor: hasta 4), y cada uno
+puede ir a la interfaz que quiera: los 4 a la misma, los 4 a distintas o
+mezclados. La pasarela no mira los mensajes: solo sabe por qué puerto ha
+entrado cada cliente y reenvía sus bytes al puerto del robot que le toca.
+
+Hilos: uno por interfaz (acepta clientes) y dos por cliente conectado (uno por
+sentido del reenvío). Un cliente lento o bloqueado solo para sus propios hilos.
 
 
 =====================================================================
@@ -21,8 +29,8 @@ A1. COMPROBAR LA IP DEL PC (cada día: la da el DHCP y puede cambiar)
 --------------------------------------------------------------------
     ip -4 addr          (la de eno1; p. ej. 10.172.18.7)
 
-Si NO coincide con la de config/pasarela.json, sigue la sección B1 antes de
-continuar.
+Si NO coincide con la de config/pasarela_multi.json, sigue la sección B1 antes
+de continuar.
 
 
 A2. ENTORNO DE PYTHON (solo para la simulación: clienteTLS.py)
@@ -35,55 +43,145 @@ sistema. El cliente necesita pybullet, que está en el entorno .venv:
 Si no existe .venv (PC nuevo), mira la sección B4.
 
 
-A3. ARRANCAR LAS PASARELAS (PC, una terminal por pasarela)
-----------------------------------------------------------
-    python3 src/pasarela.py servidor                                   (terminal 1: primaria)
-    python3 src/pasarela.py servidor --config config/pasarela_tr.json  (terminal 2: tiempo real)
-
-Piden la contraseña de pasarela.key. Para no escribirla dos veces:
-    export PASARELA_CLAVE=xxxx         (solo en esa terminal; no la guardes en ficheros)
-
-Deben mostrar:  Pasarela escuchando en 10.172.18.7:3000, destino 10.172.18.80:30001
-                Pasarela escuchando en 10.172.18.7:3001, destino 10.172.18.80:30003
-
-
-A4. ARRANCAR LOS CLIENTES (VM, una terminal por cliente)
+A3. ENSAYO AUTOMÁTICO ANTES DE EMPEZAR (40 s, sin robot)
 --------------------------------------------------------
-    python3 src/clienteTLS.py                                         (cliente 1: primaria)
-    python3 src/clienteTLS.py --robots config/robots_tls_tr.json      (cliente 2: tiempo real)
+    PASARELA_CLAVE=xxxx python3 -m pytest tests/test_pasarela_lab.py -v
 
-Cada cliente abre su propia ventana de simulación. Al conectar muestran la
-versión TLS, la suite y el CN del certificado de la pasarela.
+Si sale todo en verde, la pasarela, los certificados y la IP están bien.
+Detalles en la sección C1.
+
+
+A4. ARRANCAR LA PASARELA (PC, UNA sola terminal)
+------------------------------------------------
+    python3 src/pasarela.py multi
+
+Pide la contraseña de pasarela.key (no se ve al escribirla). Debe mostrar una
+línea por interfaz:
+
+    Interfaz primaria escuchando en 10.172.18.7:3000, destino 10.172.18.80:30001
+    Interfaz tiempo_real escuchando en 10.172.18.7:3001, destino 10.172.18.80:30003
+    Interfaz secundaria escuchando en 10.172.18.7:3002, destino 10.172.18.80:30002
+    Interfaz rtde escuchando en 10.172.18.7:3003, destino 10.172.18.80:30004
+
+Se para con Ctrl+C: deja de aceptar, cierra a todos los clientes con cierre
+TLS y termina (tarda unos 2 s).
+
+Las interfaces, sus puertos y la IP del robot están en
+config/pasarela_multi.json (sección B3). Otro fichero:
+    python3 src/pasarela.py multi --config config/OTRO.json
+
+
+A5. ARRANCAR LOS CLIENTES (VM, una terminal por cliente, hasta 4)
+-----------------------------------------------------------------
+Cada cliente elige su interfaz con el JSON de robots que se le pasa:
+
+    python3 src/clienteTLS.py                                       primaria     (:3000)
+    python3 src/clienteTLS.py --robots config/robots_tls_tr.json    tiempo_real  (:3001)
+    python3 src/clienteTLS.py --robots config/robots_tls_sec.json   secundaria   (:3002)
+
+Para la prueba de los 4 clientes vale cualquier combinación, por ejemplo:
+  - los 4 en la misma interfaz: la misma orden en 4 terminales;
+  - 2 en primaria + 1 en tiempo real + 1 en secundaria;
+  - cada uno en una interfaz distinta: las tres órdenes de arriba y, para rtde,
+        python3 src/pasarela.py cliente --port 3003
+    (cliente de consola: hace el handshake, pasa la autorización y muestra
+    versión, suite y certificado; no descodifica RTDE).
+
+Cada clienteTLS.py abre su ventana de simulación y al conectar muestra la
+versión TLS, la suite y el CN y la caducidad del certificado de la pasarela.
+
+Notas:
+  - En el JSON de robots, "puerto" es el de la PASARELA (3000-3003) e
+    "interfaz" dice cómo descodificar: "primaria" o "tiempo_real". La
+    secundaria (30002) usa el mismo formato que la primaria, por eso
+    robots_tls_sec.json lleva "interfaz": "primaria".
+  - La interfaz rtde (30004) habla otro protocolo: la pasarela la reenvía
+    igual, pero clienteTLS.py no la descodifica.
+  - Las interfaces secundaria y rtde solo están probadas contra el servidor
+    de eco de las pruebas: compruébalas con URSim o el robot antes de la demo.
+
+En el registro de la pasarela se ve por qué interfaz ha entrado cada uno:
+    ... INFO interfaz=tiempo_real ip=10.172.18.x cn=cliente-a version=TLSv1.3 suite=TLS_AES_256_GCM_SHA384 conectado a 10.172.18.80:30003
 
 Para comparar sin TLS (C7), directo al robot con config/robots.json:
     python3 src/clienteTLS.py --directo
 
-Cliente de prueba por consola (eco, sin simulación ni pybullet):
-    python3 src/pasarela.py cliente                      (a la pasarela :3000)
-    python3 src/pasarela.py cliente --port 3001          (a la pasarela :3001)
+
+A6. GUION DE LA DEMOSTRACIÓN (lo que pide el enunciado, en orden)
+-----------------------------------------------------------------
+Antes de empezar: Wireshark capturando en el PC de la pasarela (A8).
+
+ 1. Arrancar la pasarela escribiendo la contraseña (A4).
+ 2. Conectar el cliente con cliente-a (A5): enseñar versión, suite y
+    certificado de la pasarela en la terminal del cliente.
+ 3. Mover el robot desde el cliente, igual que en la práctica de TCP/IP.
+ 4. Prueba del profesor: hasta 4 clientes a la vez en las interfaces que pida
+    (A5). Enseñar en el registro las líneas interfaz=... de cada uno.
+ 5. cliente-b: el handshake funciona pero la pasarela cierra (A7.1). Enseñar
+    la línea del registro con motivo=no autorizado.
+ 6. Cliente sin certificado (A7.2) y cliente con la CA de otro estudiante
+    (A7.3): enseñar el mensaje de cada uno.
+ 7. Certificado con serverAuth (A7.4).
+ 8. Desconectar el robot con un cliente conectado: el cliente dice «la
+    pasarela cerró la conexión» y el registro lo apunta (motivo=conexión
+    cerrada). Los clientes de las otras interfaces de OTRO robot no se
+    enteran; los del mismo robot caen también, claro.
+ 9. Tiempos: el cliente imprime «TCP x ms + handshake TLS y ms» al conectar y
+    «respuesta del robot en z ms» en cada orden; repetir con --directo.
+10. Ctrl+C en la pasarela: todos los clientes informan del cierre.
+11. Guardar la captura de Wireshark: va en la entrega.
 
 
-A5. DEMOSTRAR LA SEGURIDAD
+A7. DEMOSTRAR LA SEGURIDAD
 --------------------------
-Cliente no autorizado: cliente-b tiene un certificado válido de la CA pero NO
-está en "autorizados", así que la pasarela lo rechaza. Prepara un JSON igual
-que config/cliente.json pero con las rutas de cliente-b y lánzalo con:
+Vale cualquier puerto de la pasarela (3000-3003): la autenticación y la lista
+de autorizados son las mismas en todas las interfaces.
+
+A7.1 Cliente no autorizado (cliente-b: certificado válido, pero no está en
+"autorizados"). Prepara config/cliente_b.json, igual que config/cliente.json
+pero con las rutas de cliente-b:
     python3 src/clienteTLS.py --config config/cliente_b.json
+    grep cliente-b pasarela_multi.log
 
-Registro de cada pasarela:
-    pasarela.log       (primaria)
-    pasarela_tr.log    (tiempo real)
-    grep cliente-b pasarela.log
+A7.2 Cliente sin certificado. clienteTLS.py siempre presenta uno, así que se
+hace con OpenSSL (sin -cert ni -key):
+    openssl s_client -connect 10.172.18.7:3000 -tls1_3 -CAfile PKI/publico/ca.crt
+Muestra la alerta «certificate required»; en el registro de la pasarela:
+    motivo=handshake fallido: ... peer did not return a certificate
 
-Wireshark (en el PC de la pasarela):
-    tcp.port == 3000 || tcp.port == 3001      cliente-pasarela: handshake y registros cifrados
-    tcp.port == 30001 || tcp.port == 30003    pasarela-robot: los mismos mensajes en claro
+A7.3 Cliente con la CA de otro estudiante. Crea una CA cualquiera y un
+config/cliente_ca_ajena.json, copia de cliente.json con "ca": "/tmp/ca_ajena.crt":
+    openssl req -x509 -newkey rsa:2048 -noenc -days 1 -subj "/CN=CA ajena" \
+        -keyout /tmp/ca_ajena.key -out /tmp/ca_ajena.crt
+    python3 src/clienteTLS.py --config config/cliente_ca_ajena.json
+El cliente dice: certificado de la pasarela no válido: self-signed certificate
+in certificate chain (o: unable to get local issuer certificate).
+
+A7.4 Certificado emitido con serverAuth. Se usa el de la propia pasarela como
+si fuera de cliente, EN EL PC (pasarela.key no se copia a la VM): un
+config/cliente_serverauth.json con las rutas de PKI/pasarela/pasarela.crt y .key:
+    python3 src/clienteTLS.py --config config/cliente_serverauth.json
+El cliente dice «la pasarela rechazó el certificado del cliente»; en el registro:
+    motivo=handshake fallido: ... unsuitable certificate purpose
+
+Registro de la pasarela:  pasarela_multi.log  (y por pantalla)
 
 
-A6. PROBLEMAS FRECUENTES
+A8. WIRESHARK (en el PC de la pasarela)
+---------------------------------------
+    tcp.portrange == 3000-3003      cliente-pasarela: handshake y registros cifrados
+    tcp.portrange == 30001-30004    pasarela-robot: los mismos mensajes en claro
+Para una sola interfaz:  tcp.port == 3000   y   tcp.port == 30001
+
+
+A9. PROBLEMAS FRECUENTES
 ------------------------
 "Cannot assign requested address" al arrancar la pasarela
     -> la IP de "escucha" no es la de este PC (A1 y B1).
+"No se puede escuchar en ...: Address already in use"
+    -> uno de los puertos 3000-3003 ya está cogido: queda otra pasarela
+       arrancada (modo servidor o multi) o hay dos interfaces con el mismo
+       "port" en pasarela_multi.json.
 "No such file or directory" al cargar el certificado
     -> faltan las .key en PKI/ (no van en git; cópialas del PC donde se creó
        la PKI o créala de nuevo, B2).
@@ -91,11 +189,11 @@ Cliente: "certificado de la pasarela no válido"
     -> la IP no está en la SAN del certificado: reemítelo (B1) y conéctate
        siempre por esa IP (ni 127.0.0.1 ni el nombre del equipo).
 Cliente: "flujo desalineado"
-    -> la "interfaz" del JSON de robots no corresponde al puerto del destino
-       de esa pasarela (30001 -> "primaria", 30003 -> "tiempo_real").
+    -> la "interfaz" del JSON de robots no corresponde al puerto de la
+       pasarela al que apunta (tabla de B3).
 Cliente: "la pasarela cerró la conexión"
-    -> el CN del cliente no está en "autorizados" o el robot no responde
-       (mira el log de la pasarela).
+    -> el CN del cliente no está en "autorizados" o el robot no responde en
+       el puerto de esa interfaz (mira el registro de la pasarela).
 "No module named pybullet"
     -> no has activado el entorno: source .venv/bin/activate (A2).
 sudo / apt se quedan colgados en "Conectando a es.archive.ubuntu.com"
@@ -113,8 +211,9 @@ El certificado lleva la IP en la SAN, así que hay que reemitirlo:
 
   1. src/pki.conf               IP_PASARELA="NUEVA_IP"
   2. ./src/crear_pki.sh pasarela          (SIN sudo; pide la contraseña de la CA)
-  3. "host" de "escucha" en  config/pasarela.json  y  config/pasarela_tr.json
-  4. "host" de cada robot en config/robots_tls.json y config/robots_tls_tr.json
+  3. "host" de "escucha" en  config/pasarela_multi.json  (y pasarela.json y
+     pasarela_tr.json si usas el plan B de B6)
+  4. "host" de cada robot en config/robots_tls*.json
   5. "host" de "pasarela" en config/cliente.json
   6. En la VM: los mismos JSON del cliente (pasos 4 y 5). Copiar el nuevo
      ca.crt a la VM solo si se ha recreado la CA (modo todo).
@@ -151,20 +250,54 @@ NUNCA copiar PKI/ca-privado/ ni pasarela.key.
 
 B3. FICHEROS DE CONFIGURACIÓN (config/)
 ---------------------------------------
-pasarela.json       pasarela 1: escucha :3000 -> robot :30001 (primaria)
-pasarela_tr.json    pasarela 2: escucha :3001 -> robot :30003 (tiempo real)
-cliente.json        cliente: certificados (ca, cert, key) y pasarela de prueba
-robots_tls.json     cliente 1: robot por la pasarela :3000, "interfaz": "primaria"
-robots_tls_tr.json  cliente 2: robot por la pasarela :3001, "interfaz": "tiempo_real"
-robots.json         robots en directo, sin TLS (multi_robot.py y --directo)
+pasarela_multi.json  LA pasarela de la demo: todas las interfaces
+cliente.json         cliente: certificados (ca, cert, key) y pasarela de prueba
+robots_tls.json      cliente por la interfaz primaria    (:3000)
+robots_tls_tr.json   cliente por la interfaz tiempo_real (:3001)
+robots_tls_sec.json  cliente por la interfaz secundaria  (:3002)
+robots.json          robots en directo, sin TLS (multi_robot.py y --directo)
+pasarela.json, pasarela_tr.json   plan B: una pasarela por interfaz (B6)
 
-Cada pasarela lleva: dónde escucha, a qué robot reenvía, clientes autorizados,
-fichero de log y certificados. Las rutas de "pki" y "log" son relativas a la
-carpeta config/. La contraseña NO va en ningún fichero.
+pasarela_multi.json:
+  {
+    "escucha":     { "host": "10.172.18.7" },             IP del PC (la de la SAN)
+    "interfaces": [                                        una entrada por interfaz
+      { "nombre": "primaria",    "port": 3000,             puerto donde escucha
+        "destino": { "host": "10.172.18.80", "port": 30001 } },   robot y su puerto
+      { "nombre": "tiempo_real", "port": 3001, "destino": { ... 30003 } },
+      ...
+    ],
+    "autorizados": ["cliente-a"],                          CN admitidos (todas las interfaces)
+    "log":         "../pasarela_multi.log",
+    "pki":         { "ca": ..., "cert": ..., "key": ... }
+  }
+(los comentarios de la derecha no van en el fichero). Las rutas de "pki" y
+"log" son relativas a la carpeta config/. La contraseña NO va en ningún fichero.
 
-Regla: la "interfaz" de un robot en robots_tls*.json tiene que corresponder al
-puerto del "destino" de la pasarela a la que apunta su "puerto":
-    destino 30001 -> "primaria"        destino 30003 -> "tiempo_real"
+Correspondencia entre el cliente y la pasarela:
+
+    interfaz       "port" pasarela   puerto robot   "interfaz" en robots_tls*.json
+    primaria       3000              30001          "primaria"
+    tiempo_real    3001              30003          "tiempo_real"
+    secundaria     3002              30002          "primaria"  (mismo formato)
+    rtde           3003              30004          (clienteTLS.py no la descodifica)
+
+Añadir, quitar o cambiar interfaces: se edita la lista "interfaces" y se
+vuelve a arrancar la pasarela. No hay que tocar el código ni los certificados
+(la SAN es la IP, no el puerto). Condiciones: "nombre" y "port" no repetidos.
+
+Segundo robot: son más entradas en la misma lista, con otro puerto de escucha
+y el "destino" del robot 2:
+      { "nombre": "robot2_primaria", "port": 3010,
+        "destino": { "host": "10.172.18.81", "port": 30001 } }
+y en el JSON de robots del cliente, una entrada por robot ("pose" es solo su
+posición en la simulación):
+  [
+    { "nombre": "robot_1", "host": "10.172.18.7", "puerto": 3000,
+      "interfaz": "primaria", "pose": [0, 0, 0, 0, 0, 0] },
+    { "nombre": "robot_2", "host": "10.172.18.7", "puerto": 3010,
+      "interfaz": "primaria", "pose": [0.8, 0, 0, 0, 0, 0] }
+  ]
 
 
 B4. ENTORNO DE PYTHON PARA LA SIMULACIÓN (.venv)
@@ -181,55 +314,104 @@ eso se usa el Python 3.11 portable de la práctica 1, copiado en ~/python311:
 que compilar. No borres ~/python311: el .venv depende de él.
 
 
-B5. CAMBIAR PUERTOS, ROBOTS O CLIENTES
---------------------------------------
-Puerto de una pasarela: "escucha" en su pasarela*.json y "puerto" en el
-robots_tls*.json que apunta a ella (o: pasarela.py servidor --port 3002). El
-certificado no cambia: la SAN es la IP, no el puerto.
-
-Robot de destino: "destino" en pasarela*.json.
-    Sin robot (pruebas): un servidor de eco, p. ej. 127.0.0.1:5000.
-
-Segundo robot (máximo previsto: 2 robots x 2 interfaces = 4 pasarelas): copia
-pasarela.json / pasarela_tr.json con otro puerto de escucha (3002, 3003...),
-el "destino" del robot 2 y otro "log". En robots_tls*.json, una entrada por
-robot; "pose" es solo su posición en la simulación:
-  [
-    { "nombre": "robot_1", "host": "10.172.18.7", "puerto": 3000,
-      "interfaz": "primaria", "pose": [0, 0, 0, 0, 0, 0] },
-    { "nombre": "robot_2", "host": "10.172.18.7", "puerto": 3002,
-      "interfaz": "primaria", "pose": [0.8, 0, 0, 0, 0, 0] }
-  ]
-
-Clientes: los dos clientes de la demo pueden usar el mismo certificado
-(cliente-a). Si quieres que aparezcan con nombres distintos en el log:
+B5. CLIENTES CON OTRO CERTIFICADO
+---------------------------------
+Los clientes de la demo pueden usar todos el mismo certificado (cliente-a). Si
+quieres que aparezcan con nombres distintos en el registro:
     ./src/crear_pki.sh cliente cliente-c
-añade "cliente-c" a "autorizados" de la pasarela correspondiente y crea un
+añade "cliente-c" a "autorizados" en pasarela_multi.json y crea un
 cliente_c.json (copia de cliente.json con las rutas de cliente-c); el cliente
 se lanza con --config config/cliente_c.json.
+
+
+B6. PLAN B: UNA PASARELA POR INTERFAZ (modo servidor, el de antes)
+------------------------------------------------------------------
+Sigue funcionando igual. Cada proceso atiende una sola interfaz:
+    python3 src/pasarela.py servidor                                   (:3000 -> 30001)
+    python3 src/pasarela.py servidor --config config/pasarela_tr.json  (:3001 -> 30003)
+Para no escribir la contraseña en cada terminal:
+    export PASARELA_CLAVE=xxxx         (solo en esa terminal; no la guardes en ficheros)
+No se puede arrancar a la vez que el modo multi: usan los mismos puertos.
 
 
 =====================================================================
  C. PRUEBAS Y ENTREGA
 =====================================================================
 
-C1. PRUEBAS (tests/)
---------------------
-    PASARELA_CLAVE=xxxx python3 -m pytest tests/ -v
+C1. ENSAYO DE LA DEMOSTRACIÓN (tests/test_pasarela_lab.py)
+----------------------------------------------------------
+Arranca la pasarela multi-interfaz de verdad (como proceso) con 4 interfaces
+en puertos libres; cada interfaz reenvía a un servidor de eco que hace de
+robot. Lanza clientes TLS reales y el propio clienteTLS.py contra ella.
 
-test_pasarela.py   P1-P16 de la pasarela (Fase 3)
-test_clienteTLS.py C1-C10 del cliente seguro (Fase 4)
+    PASARELA_CLAVE=xxxx python3 -m pytest tests/test_pasarela_lab.py -v
 
-- NO necesitan robot ni URSim: usan la pasarela real con un servidor de eco.
-- NO necesitan pybullet: si falta, se sustituye por un módulo vacío.
-- SÍ necesitan: la IP de "escucha" de config/pasarela.json asignada a este PC,
-  los certificados y claves en PKI/ y PASARELA_CLAVE (sin ella se omiten).
-- Prueba opcional con robot real o URSim (interfaz primaria):
-      ROBOT=10.172.18.80:30001 PASARELA_CLAVE=xxxx python3 -m pytest tests/ -v
-- Tardan unos 25 s (una prueba espera el límite de 10 s del handshake).
+Para que la contraseña no quede en el historial de la terminal:
+    read -rs PASARELA_CLAVE && export PASARELA_CLAVE
+    python3 -m pytest tests/test_pasarela_lab.py -v
+
+Necesita:
+  - la IP de "escucha" de config/pasarela_multi.json asignada a este PC;
+  - las claves de pasarela, cliente-a y cliente-b en PKI/, las tres con la
+    misma contraseña, y esa contraseña en PASARELA_CLAVE;
+  - pytest y openssl. NO necesita robot, URSim ni pybullet.
+Si falta la IP, la contraseña o alguna clave, las pruebas salen como SKIPPED
+(omitidas) con el motivo: eso NO es un aprobado.
+
+No usa los puertos 3000-3003: se puede lanzar con la pasarela de la demo
+arrancada. Tarda unos 40 s (una prueba espera el límite de 10 s del handshake).
+
+Qué comprueba cada grupo (el nombre de cada prueba empieza por estas letras):
+
+  MI  Prueba del profesor: 4 clientes a la vez repartidos en las interfaces de
+      cuatro formas (4 distintas, 4 en la misma, 2+2 y 2+1+1); cada interfaz
+      lleva a su destino solo a sus clientes; el registro dice la interfaz;
+      una interfaz sin robot no afecta a las demás.
+  A1  Mismas operaciones, mismos resultados que en directo.
+  A2  cliente-b: handshake correcto, cierre inmediato y línea en el registro.
+  A3  Cliente sin certificado: rechazado en el handshake.
+  A4  Certificado con serverAuth: rechazado por uso no permitido.
+  A5  El robot se desconecta: la pasarela cierra al cliente y lo registra; el
+      cliente informa del cierre.
+  A6  Cuatro clientes y uno bloqueado (sin handshake, o que deja de leer): los
+      otros tres siguen funcionando.
+  A7  CA de otro estudiante: falla en el cliente con un mensaje que da la causa.
+  A8  Tiempo de la misma operación directa y por la pasarela (lo imprime).
+  D   Lo que se enseña: la pasarela solo arranca con la contraseña correcta,
+      la contraseña no está escrita en ningún fichero, y los mensajes que
+      muestra clienteTLS.py (versión, suite, certificado, rechazos).
+  P   P1, P3, P5, P8, P12, P14 y P16 sobre la clase nueva (solo escucha en la
+      IP de la pasarela, solo TLS 1.3, límite del handshake, Ctrl+C...).
+
+Solo un grupo o una prueba:
+    PASARELA_CLAVE=xxxx python3 -m pytest tests/test_pasarela_lab.py -v -k MI
+    PASARELA_CLAVE=xxxx python3 -m pytest tests/test_pasarela_lab.py -v -k A6
+
+Con el robot o URSim encendido (añade una prueba: dos clientes a la vez por las
+interfaces 30001 y 30003 reales, comparando con la conexión directa):
+    ROBOT=10.172.18.80 PASARELA_CLAVE=xxxx python3 -m pytest tests/test_pasarela_lab.py -v
+
+Si una prueba falla, el mensaje dice qué esperaba y, cuando hace falta, incluye
+el registro que escribió la pasarela en esa prueba.
+
+Lo que NO puede comprobar y hay que ensayar a mano: mover el robot real desde
+el cliente y las capturas de Wireshark (A6 y A8).
 
 
-C2. ENTREGA (E3)
+C2. PRUEBAS DE LOS REQUISITOS (las de antes)
+--------------------------------------------
+    PASARELA_CLAVE=xxxx python3 -m pytest tests/ -v          (todas, 1 min)
+
+test_pasarela.py      P1-P16 con el modo servidor (una interfaz)
+test_clienteTLS.py    C1-C10 del cliente seguro (Fase 4)
+test_pasarela_lab.py  ensayo de la demostración con el modo multi (C1)
+
+Usan la IP de "escucha" de config/pasarela.json y las mismas claves y
+contraseña. Prueba opcional con robot (interfaz primaria):
+    ROBOT=10.172.18.80:30001 PASARELA_CLAVE=xxxx python3 -m pytest tests/ -v
+
+
+C3. ENTREGA (E3)
 ----------------
 Sin claves privadas (.key), sin .p12, sin PKI/ca-privado/ y sin contraseñas.
 El .gitignore ya excluye *.key, *.csr, *.p12, ca-privado/, *.log y .venv/.
