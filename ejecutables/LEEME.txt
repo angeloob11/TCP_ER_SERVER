@@ -20,14 +20,45 @@ Windows:  doble clic en pasarela.exe
 Pide la contraseña de pasarela.key y muestra una línea por interfaz. Se para
 con Ctrl+C. El registro queda en pasarela_multi.log, en esta carpeta.
 
-Usa config/pasarela_multi.json DE ESTA CARPETA (no el de la raíz del proyecto).
-Si cambia la IP del PC o la del robot, cámbiala en ese fichero.
------PARA CAMBIO DE IP---------
+Usa los pasarela*.json de config/ DE ESTA CARPETA (no los de la raíz del
+proyecto). Si hay más de uno, pregunta cuál.
 
-sed -i 's/10\.172\.18\.7/IP_NUEVA/' src/pki.conf config/pasarela*.json config/cliente.json config/robots_tls*.json ejecutables/config/*.json
+CAMBIO DE IP (la del PC de la pasarela o la del robot)
+------------------------------------------------------
+No hay que tocar los JSON a mano. Edita src/pki.conf:
 
+    IP_PASARELA="..."     IP del PC de la pasarela
+    IP_ROBOT="..."        IP de destino (el robot)
 
-./src/crear_pki.sh pasarela
+y ejecuta, desde la raíz del proyecto:
+
+    ./src/crear_pki.sh pasarela    si cambió IP_PASARELA (reemite su certificado)
+    ./src/crear_pki.sh config      si solo cambió IP_ROBOT (no toca certificados)
+
+Los dos escriben en config/ un juego NUEVO de JSON con esas IP y un número al
+final: pasarela-1.json, robots_tls-1.json, robots_tls_tr-1.json,
+robots_tls_sec-1.json, cliente-a-1.json, cliente-b-1.json... La siguiente vez
+serán los -2, y así. Nunca se sobrescribe ninguno: en los menús elige los del
+número más alto y borra los viejos cuando ya no sirvan.
+
+CLIENTE FALSO (cliente-c)
+-------------------------
+    ./src/crear_pki.sh falso
+
+Crea PKI/cliente-c con dos falsificaciones de cliente-a y sus JSON:
+
+  cliente-c-N.json           certificado con CN=cliente-a firmado por una CA
+                             inventada que se llama igual que la auténtica.
+                             La pasarela lo rechaza: "unable to get local
+                             issuer certificate" (el cliente ve UNKNOWN_CA).
+  cliente-c-alterado-N.json  el certificado auténtico de cliente-a con un bit
+                             de la firma cambiado; usa cliente-a.key y su
+                             contraseña. La pasarela lo rechaza: "certificate
+                             signature failure" (el cliente ve DECRYPT_ERROR).
+
+Ojo con alterar un certificado a mano cambiando la última letra: si el texto
+acaba en "=" esa letra lleva bits de relleno que no cuentan, y el certificado
+puede quedar exactamente igual (por eso "pasaba"). Cambia una letra del medio.
 
 
 2. CLIENTE (en la VM o en otro equipo, Linux o Windows)
