@@ -1,0 +1,7 @@
+# Los binarios se regeneran con fuente/construir_linux.sh o construir_windows.bat
+/pasarela
+/cliente
+*.exe
+fuente/build/
+# Si se copia aquí la PKI para llevarla a otro equipo, que no llegue a git
+/PKI/

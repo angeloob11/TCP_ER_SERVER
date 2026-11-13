@@ -39,3 +39,9 @@ PKI/**/*.p12
 PKI/**/*.srl
 PKI/**/antiguo_*/
 PKI/informe_E1.txt
+
+# Claves privadas: nunca a git, estén en la carpeta que estén
+# (p. ej. una PKI copiada dentro de ejecutables/)
+*.key
+*.p12
+*.csr

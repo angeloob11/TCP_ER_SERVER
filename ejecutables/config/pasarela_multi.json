@@ -1,0 +1,16 @@
+{
+  "escucha":     { "host": "10.172.18.7" },
+  "interfaces": [
+    { "nombre": "primaria",    "port": 3000, "destino": { "host": "10.172.18.80", "port": 30001 } },
+    { "nombre": "tiempo_real", "port": 3001, "destino": { "host": "10.172.18.80", "port": 30003 } },
+    { "nombre": "secundaria",  "port": 3002, "destino": { "host": "10.172.18.80", "port": 30002 } },
+    { "nombre": "rtde",        "port": 3003, "destino": { "host": "10.172.18.80", "port": 30004 } }
+  ],
+  "autorizados": ["cliente-a"],
+  "log":         "../pasarela_multi.log",
+  "pki": {
+    "ca":   "../PKI/publico/ca.crt",
+    "cert": "../PKI/pasarela/pasarela.crt",
+    "key":  "../PKI/pasarela/pasarela.key"
+  }
+}

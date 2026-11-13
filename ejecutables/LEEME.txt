@@ -1,0 +1,96 @@
+EJECUTABLES DE LA DEMO · Pasarela TLS para el UR3e
+===================================================
+
+Con estos ejecutables no hace falta Python, ni el entorno .venv, ni escribir
+órdenes con opciones: se lanzan y preguntan lo que necesitan.
+
+  pasarela  /  pasarela.exe    arranca la pasarela de las 4 interfaces
+  cliente   /  cliente.exe     cliente con la simulación; se elige con un menú
+  config/                      los JSON que usan los ejecutables
+  fuente/                      con qué se generan (no hace falta para usarlos)
+
+Los que no llevan extensión son los de Linux; los .exe, los de Windows.
+
+
+1. PASARELA (en el PC del laboratorio)
+--------------------------------------
+Linux:    abre una terminal en esta carpeta y escribe   ./pasarela
+Windows:  doble clic en pasarela.exe
+
+Pide la contraseña de pasarela.key y muestra una línea por interfaz. Se para
+con Ctrl+C. El registro queda en pasarela_multi.log, en esta carpeta.
+
+Usa config/pasarela_multi.json DE ESTA CARPETA (no el de la raíz del proyecto).
+Si cambia la IP del PC o la del robot, cámbiala en ese fichero.
+-----PARA CAMBIO DE IP---------
+
+sed -i 's/10\.172\.18\.7/IP_NUEVA/' src/pki.conf config/pasarela*.json config/cliente.json config/robots_tls*.json ejecutables/config/*.json
+
+
+./src/crear_pki.sh pasarela
+
+
+2. CLIENTE (en la VM o en otro equipo, Linux o Windows)
+-------------------------------------------------------
+Linux:    abre una terminal en esta carpeta y escribe   ./cliente
+Windows:  doble clic en cliente.exe
+
+Hace dos preguntas (Enter elige la primera opción) y pide la contraseña:
+
+    ¿A qué te conectas?
+      1) robots_tls.json      por la pasarela TLS: robot_1 en 10.172.18.7:3000 primaria
+      2) robots_tls_sec.json  por la pasarela TLS: robot_1 en 10.172.18.7:3002 secundaria
+      3) robots_tls_tr.json   por la pasarela TLS: robot_1 en 10.172.18.7:3001 tiempo_real
+      4) robots.json          DIRECTO al robot, sin TLS: ...
+    ¿Con qué certificado de cliente?
+      1) cliente-a    (cliente_a.json)
+      2) cliente-b    (cliente_b.json)       <- el no autorizado: la pasarela lo cierra
+
+Para varios clientes a la vez, lanza el ejecutable una vez por cliente y elige
+en cada uno la interfaz que toque. El modo directo no pregunta el certificado.
+
+Las opciones salen de los ficheros de config/:
+  - cada robots*.json es una opción de "¿A qué te conectas?";
+  - cada cliente*.json es una opción de certificado.
+Para añadir una opción, copia uno de esos JSON con otro nombre y cámbialo. Por
+ejemplo, para las demostraciones de la CA ajena o del certificado con
+serverAuth (A7.3 y A7.4 de GUIA_LAB.txt) crea config/cliente_ca_ajena.json o
+config/cliente_serverauth.json y aparecerán en el menú.
+
+
+3. LLEVAR EL CLIENTE A OTRO EQUIPO
+----------------------------------
+Copia al otro equipo una carpeta con:
+
+    cliente  (o cliente.exe)
+    config/
+    PKI/publico/ca.crt
+    PKI/cliente-a/cliente-a.crt  y  cliente-a.key
+    PKI/cliente-b/cliente-b.crt  y  cliente-b.key
+
+NO copies PKI/ca-privado ni pasarela.key: el cliente no los necesita.
+
+En este PC no hace falta copiar la PKI: si no hay una carpeta PKI aquí dentro,
+los ejecutables usan la del proyecto (../PKI).
+
+En config/robots_tls*.json el "host" es la IP de la pasarela: tiene que ser la
+misma que figura en el certificado de la pasarela.
+
+
+4. GENERAR LOS EJECUTABLES
+--------------------------
+No se pueden generar los de Windows desde Linux ni al revés: cada uno se crea
+en su sistema, con el Python que ya tiene pybullet y UR3e_rg2 instalados.
+
+Linux:    ./fuente/construir_linux.sh         crea  pasarela  y  cliente
+Windows:  doble clic en fuente\construir_windows.bat
+                                              crea  pasarela.exe  y  cliente.exe
+
+Hay que volver a generarlos si se cambia el código de src/. Si solo cambian
+los JSON de config/, no.
+
+Los binarios no se suben a git (ocupan unos 100 MB): se regeneran así.
+
+Sin generar nada, los mismos menús funcionan con Python en los dos sistemas:
+    python fuente/lanzar_pasarela.py
+    python fuente/lanzar_cliente.py          (con el entorno que tiene pybullet)

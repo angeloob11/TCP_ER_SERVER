@@ -3,6 +3,11 @@ GUÍA RÁPIDA DEL LABORATORIO · Pasarela TLS para el UR3e
 
 Todas las órdenes se lanzan desde la carpeta del proyecto (TCP_ER_SERVER).
 
+SIN LÍNEA DE ÓRDENES: en la carpeta ejecutables/ hay un ejecutable de la
+pasarela y otro del cliente (con menú para elegir interfaz y cliente-a o
+cliente-b). Sustituyen a las órdenes de A4, A5 y A7.1; usan su propia copia de
+los JSON, en ejecutables/config/. Instrucciones: ejecutables/LEEME.txt
+
 Esquema de la demo: UNA sola pasarela (clase PasarelaMultiInterfaz) con un
 puerto de escucha por cada interfaz del robot. El cliente elige la interfaz por
 el puerto al que se conecta:
